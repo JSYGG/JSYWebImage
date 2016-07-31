@@ -13,6 +13,8 @@
  *  模型属性
  */
 @property(nonatomic,strong) JSYInfo *info;
-
-
+/**
+ *  iconView
+ */
+@property (weak, nonatomic) IBOutlet UIImageView *iconView;
 @end

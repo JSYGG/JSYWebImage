@@ -16,6 +16,10 @@
 
 @property(nonatomic,strong) NSOperationQueue *queue;
 
+@property(nonatomic,strong) NSMutableDictionary *imageCashe;
+
+@property(nonatomic,strong) NSMutableDictionary *operationCashe;
+
 @end
 
 @implementation ViewController
@@ -49,35 +53,45 @@
 #pragma mark -- 数据源方法
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.infoArr.count != 0 ? self.infoArr.count : 50;
+    return self.infoArr.count;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     JSYInfoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-    JSYInfo *info = self.infoArr.count != 0 ? self.infoArr[indexPath.row] : nil;;
+    JSYInfo *info = self.infoArr[indexPath.row];
     cell.info = info;
-//    if (info.image != nil) {
-//        cell.imageView.image = info.image;
-//        return cell;
-//    }
-//    
+    cell.iconView.image = [[UIImage alloc] init];;
+    /**
+     *  判断内存中是否有图片
+     */
+    UIImage *image =  self.imageCashe[info.icon];
+    if (image != nil) {
+        cell.iconView.image = image;
+        return cell;
+    }
+    /**
+     *  判断是否有操作缓存
+     */
+    if (self.operationCashe[info.icon] != nil) {
+        return cell;
+    }
+    
 //    NSURL *imageUrl =[NSURL URLWithString:info.icon];
-//    
 //    [cell.imageView sd_setImageWithURL:imageUrl];
-//    NSBlockOperation *op = [NSBlockOperation blockOperationWithBlock:^{
-//        
-//        [NSThread sleepForTimeInterval:5];
-//        NSURL *imageURL = [NSURL URLWithString:info.icon];
-//        NSData *data = [NSData dataWithContentsOfURL:imageURL];
-//        UIImage *iconImage = [UIImage imageWithData:data];
-//        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-////            cell.imageView.image = iconImage;
-//            info.image =iconImage;
-//            [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-//        }];
-//    }];
-//    
-//    [self.queue addOperation:op];    
+    NSBlockOperation *op = [NSBlockOperation blockOperationWithBlock:^{
+        [NSThread sleepForTimeInterval:5];
+        NSURL *imageURL = [NSURL URLWithString:info.icon];
+        NSData *data = [NSData dataWithContentsOfURL:imageURL];
+        UIImage *iconImage = [UIImage imageWithData:data];
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            [self.imageCashe setObject:iconImage forKey:info.icon];
+            [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+        }];
+    }];
+    //添加操作到缓存
+    [self.operationCashe setObject:op forKey:info.icon];
+    //添加操作到队列
+    [self.queue addOperation:op];    
     return cell;
 }
 /**
@@ -97,7 +111,18 @@
     }
     return _infoArr;
 }
-
-
+-(NSMutableDictionary *)imageCashe{
+    if (_imageCashe == nil) {
+        _imageCashe = [[NSMutableDictionary alloc] init];
+    }
+    return _imageCashe;
+}
+-(NSMutableDictionary *)operationCashe
+{
+    if (_operationCashe == nil) {
+        _operationCashe = [[NSMutableDictionary alloc] init];
+    }
+    return _operationCashe;
+}
 
 @end

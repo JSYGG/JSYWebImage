@@ -37,6 +37,7 @@
 		2B15BAA61D4B81DA0012B07F /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B15BA901D4B81DA0012B07F /* UIView+WebCacheOperation.m */; };
 		2B15BAA91D4B83440012B07F /* JSYInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B15BAA81D4B83440012B07F /* JSYInfo.m */; };
 		2B15BAAC1D4BA1530012B07F /* JSYInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B15BAAB1D4BA1530012B07F /* JSYInfoTableViewCell.m */; };
+		2BE7A6FE1D4CCDCB0002710C /* JSYWebImageManeger.m in Sources */ = {isa = PBXBuildFile; fileRef = 2BE7A6FD1D4CCDCB0002710C /* JSYWebImageManeger.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -100,6 +101,8 @@
 		2B15BAA81D4B83440012B07F /* JSYInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSYInfo.m; sourceTree = "<group>"; };
 		2B15BAAA1D4BA1530012B07F /* JSYInfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSYInfoTableViewCell.h; sourceTree = "<group>"; };
 		2B15BAAB1D4BA1530012B07F /* JSYInfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSYInfoTableViewCell.m; sourceTree = "<group>"; };
+		2BE7A6FC1D4CCDCB0002710C /* JSYWebImageManeger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSYWebImageManeger.h; sourceTree = "<group>"; };
+		2BE7A6FD1D4CCDCB0002710C /* JSYWebImageManeger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSYWebImageManeger.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +119,7 @@
 		2B15BA3D1D4B80500012B07F = {
 			isa = PBXGroup;
 			children = (
+				2BE7A6FB1D4CCD8E0002710C /* JSYWebImage */,
 				2B15BA601D4B81DA0012B07F /* ThirdLib */,
 				2B15BA481D4B80500012B07F /* 异步下载图片 */,
 				2B15BA471D4B80500012B07F /* Products */,
@@ -227,6 +231,15 @@
 			path = SDWebImage;
 			sourceTree = "<group>";
 		};
+		2BE7A6FB1D4CCD8E0002710C /* JSYWebImage */ = {
+			isa = PBXGroup;
+			children = (
+				2BE7A6FC1D4CCDCB0002710C /* JSYWebImageManeger.h */,
+				2BE7A6FD1D4CCDCB0002710C /* JSYWebImageManeger.m */,
+			);
+			path = JSYWebImage;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -318,6 +331,7 @@
 				2B15BAA01D4B81DA0012B07F /* UIButton+WebCache.m in Sources */,
 				2B15BA931D4B81DA0012B07F /* AFSecurityPolicy.m in Sources */,
 				2B15BA991D4B81DA0012B07F /* SDImageCache.m in Sources */,
+				2BE7A6FE1D4CCDCB0002710C /* JSYWebImageManeger.m in Sources */,
 				2B15BA941D4B81DA0012B07F /* AFURLRequestSerialization.m in Sources */,
 				2B15BA951D4B81DA0012B07F /* AFURLResponseSerialization.m in Sources */,
 				2B15BA911D4B81DA0012B07F /* AFHTTPSessionManager.m in Sources */,
@@ -472,6 +486,7 @@
 				2B15BA5F1D4B80500012B07F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -6,16 +6,21 @@
 //  Copyright © 2016年 itheima. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @interface JSYInfo : NSObject
-
+/**
+ *  appname
+ */
 @property(nonatomic,copy) NSString *name;
-
+/**
+ *  图标网址
+ */
 @property(nonatomic,copy) NSString *icon;
-
+/**
+ *  下载量
+ */
 @property(nonatomic,copy) NSString *download;
 
-@property(nonatomic,strong) UIImage *image;
 
 @end

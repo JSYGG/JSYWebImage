@@ -22,10 +22,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     [self loadData];
 //    [self.tableView registerClass:[JSYInfoTableViewCell class] forCellReuseIdentifier:@"cell"];
 }
-
+/**
+ *  加载数据 (AFN)
+ */
 -(void)loadData{
     NSString *urlString = @"https://raw.githubusercontent.com/JSYGG/JSYBigBang/master/apps.json";
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
@@ -43,7 +46,7 @@
     }];
     
 }
-
+#pragma mark -- 数据源方法
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return self.infoArr.count != 0 ? self.infoArr.count : 50;
@@ -77,7 +80,9 @@
 //    [self.queue addOperation:op];    
     return cell;
 }
-
+/**
+ *  懒加载
+ */
 -(NSOperationQueue *)queue
 {
     if (_queue == nil) {

@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 @class JSYInfo;
 @interface JSYInfoTableViewCell : UITableViewCell
-
+/**
+ *  模型属性
+ */
 @property(nonatomic,strong) JSYInfo *info;
 
 

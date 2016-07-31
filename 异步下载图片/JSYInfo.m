@@ -9,7 +9,9 @@
 #import "JSYInfo.h"
 
 @implementation JSYInfo
-
+/**
+ *  重写 防止模型与字典属性数量不符报错
+ */
 -(void)setValue:(id)value forUndefinedKey:(NSString *)key {}
 
 @end

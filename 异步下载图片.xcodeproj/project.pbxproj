@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2B0E51861D4DC5A000E47D06 /* JSYWebImageOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B0E51851D4DC5A000E47D06 /* JSYWebImageOperation.m */; };
 		2B0E518A1D4DE55500E47D06 /* NSString+path.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B0E51891D4DE55500E47D06 /* NSString+path.m */; };
+		2B0E518D1D4DE8D900E47D06 /* UIImageView+webImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B0E518C1D4DE8D900E47D06 /* UIImageView+webImage.m */; };
 		2B15BA4B1D4B80500012B07F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B15BA4A1D4B80500012B07F /* main.m */; };
 		2B15BA4E1D4B80500012B07F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B15BA4D1D4B80500012B07F /* AppDelegate.m */; };
 		2B15BA511D4B80500012B07F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B15BA501D4B80500012B07F /* ViewController.m */; };
@@ -47,6 +48,8 @@
 		2B0E51851D4DC5A000E47D06 /* JSYWebImageOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSYWebImageOperation.m; sourceTree = "<group>"; };
 		2B0E51881D4DE55500E47D06 /* NSString+path.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+path.h"; sourceTree = "<group>"; };
 		2B0E51891D4DE55500E47D06 /* NSString+path.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+path.m"; sourceTree = "<group>"; };
+		2B0E518B1D4DE8D900E47D06 /* UIImageView+webImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+webImage.h"; sourceTree = "<group>"; };
+		2B0E518C1D4DE8D900E47D06 /* UIImageView+webImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+webImage.m"; sourceTree = "<group>"; };
 		2B15BA461D4B80500012B07F /* 异步下载图片.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "异步下载图片.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B15BA4A1D4B80500012B07F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		2B15BA4C1D4B80500012B07F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -254,6 +257,8 @@
 				2BE7A6FD1D4CCDCB0002710C /* JSYWebImageManeger.m */,
 				2B0E51841D4DC5A000E47D06 /* JSYWebImageOperation.h */,
 				2B0E51851D4DC5A000E47D06 /* JSYWebImageOperation.m */,
+				2B0E518B1D4DE8D900E47D06 /* UIImageView+webImage.h */,
+				2B0E518C1D4DE8D900E47D06 /* UIImageView+webImage.m */,
 			);
 			path = JSYWebImage;
 			sourceTree = "<group>";
@@ -335,6 +340,7 @@
 				2B15BA9D1D4B81DA0012B07F /* SDWebImageDownloaderOperation.m in Sources */,
 				2B15BA9E1D4B81DA0012B07F /* SDWebImageManager.m in Sources */,
 				2B15BA511D4B80500012B07F /* ViewController.m in Sources */,
+				2B0E518D1D4DE8D900E47D06 /* UIImageView+webImage.m in Sources */,
 				2B15BA4E1D4B80500012B07F /* AppDelegate.m in Sources */,
 				2B15BA9C1D4B81DA0012B07F /* SDWebImageDownloader.m in Sources */,
 				2B15BA971D4B81DA0012B07F /* MKAnnotationView+WebCache.m in Sources */,

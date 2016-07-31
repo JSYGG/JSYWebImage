@@ -12,6 +12,7 @@
 #import "UIImageView+WebCache.h"
 #import "JSYInfoTableViewCell.h"
 #import "JSYWebImageManeger.h"
+#import "UIImageView+webImage.h"
 @interface ViewController ()
 @property(nonatomic,strong) NSMutableArray *infoArr;
 
@@ -62,10 +63,12 @@
     
     cell.iconView.image = [UIImage imageNamed:@"bg_common"];
     
-    JSYWebImageManeger *maneger = [JSYWebImageManeger shareWebImageManeger];
-    [maneger downloadImageWithURLSring:info.icon complish:^(UIImage *image) {
-        cell.iconView.image = image;
-    }];
+    [cell.iconView jsy_setImageWithURLstr:info.icon];
+    
+//    JSYWebImageManeger *maneger = [JSYWebImageManeger shareWebImageManeger];
+//    [maneger downloadImageWithURLSring:info.icon complish:^(UIImage *image) {
+//        cell.iconView.image = image;
+//    }];
     //清空cell图片
 //    cell.iconView.image = [[UIImage alloc] init];
 //    //设置占位图片

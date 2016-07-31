@@ -10,4 +10,6 @@
 
 @interface JSYWebImageManeger : NSObject
 
++(instancetype)shareWebImageManeger;
+
 @end

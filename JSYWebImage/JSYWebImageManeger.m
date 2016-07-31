@@ -10,4 +10,16 @@
 
 @implementation JSYWebImageManeger
 
+/**
+ *  单例类方法
+ */
++(instancetype)shareWebImageManeger{
+    static JSYWebImageManeger *maneger;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        maneger = [[JSYWebImageManeger alloc] init];
+    });
+    return maneger;
+}
+
 @end

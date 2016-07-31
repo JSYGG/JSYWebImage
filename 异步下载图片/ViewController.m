@@ -60,7 +60,10 @@
     JSYInfoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     JSYInfo *info = self.infoArr[indexPath.row];
     cell.info = info;
-    cell.iconView.image = [[UIImage alloc] init];;
+    //清空cell图片
+//    cell.iconView.image = [[UIImage alloc] init];
+    //设置占位图片
+    cell.iconView.image = [UIImage imageNamed:@"bg_common"];
     /**
      *  判断内存中是否有图片
      */
@@ -70,7 +73,16 @@
         return cell;
     }
     /**
-     *  判断是否有操作缓存
+     *  判断沙盒中是否有图片
+     */
+    NSString *path = [self getCashePath:info.icon];
+    image = [UIImage imageWithContentsOfFile:path];
+    if (image != nil) {
+        cell.iconView.image = image;
+        return  cell;
+    }
+    /**
+     *  判断是否有操作缓存,避免添加重复的操作
      */
     if (self.operationCashe[info.icon] != nil) {
         return cell;
@@ -83,6 +95,10 @@
         NSURL *imageURL = [NSURL URLWithString:info.icon];
         NSData *data = [NSData dataWithContentsOfURL:imageURL];
         UIImage *iconImage = [UIImage imageWithData:data];
+        /**
+         *  写入沙盒
+         */
+        [data writeToFile:[self getCashePath:info.icon] atomically:YES];
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
             [self.imageCashe setObject:iconImage forKey:info.icon];
             [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
@@ -94,6 +110,16 @@
     [self.queue addOperation:op];    
     return cell;
 }
+/**
+ *  获取图片在沙盒的地址
+ */
+-(NSString *)getCashePath:(NSString *)urlString {
+    NSString *cashePath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
+    NSString *imageName = [urlString lastPathComponent];
+    NSString *filePath = [cashePath stringByAppendingPathComponent:imageName];
+    return filePath;
+}
+
 /**
  *  懒加载
  */
@@ -124,5 +150,22 @@
     }
     return _operationCashe;
 }
-
+/**
+ *  收到内存警告
+ */
+-(void)didReceiveMemoryWarning{
+    [super didReceiveMemoryWarning];
+    /**
+     *  移除内存中的图片
+     */
+    [self.imageCashe removeAllObjects];
+    /**
+     *  移除所有操作缓存
+     */
+    [self.operationCashe removeAllObjects];
+    /**
+     *  移除队列中的操作
+     */
+    [self.queue cancelAllOperations];
+}
 @end

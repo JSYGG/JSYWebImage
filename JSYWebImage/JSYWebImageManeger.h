@@ -6,10 +6,12 @@
 //  Copyright © 2016年 itheima. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @interface JSYWebImageManeger : NSObject
 
 +(instancetype)shareWebImageManeger;
 
+
+-(void)downloadImageWithURLSring:(NSString *)URLstr complish:(void (^)(UIImage *image)) complish;
 @end

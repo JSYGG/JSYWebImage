@@ -11,6 +11,7 @@
 #import "JSYInfo.h"
 #import "UIImageView+WebCache.h"
 #import "JSYInfoTableViewCell.h"
+#import "JSYWebImageManeger.h"
 @interface ViewController ()
 @property(nonatomic,strong) NSMutableArray *infoArr;
 
@@ -51,63 +52,70 @@
     
 }
 #pragma mark -- 数据源方法
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.infoArr.count;
 }
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     JSYInfoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     JSYInfo *info = self.infoArr[indexPath.row];
     cell.info = info;
+    
+    cell.iconView.image = [UIImage imageNamed:@"bg_common"];
+    
+    JSYWebImageManeger *maneger = [JSYWebImageManeger shareWebImageManeger];
+    [maneger downloadImageWithURLSring:info.icon complish:^(UIImage *image) {
+        cell.iconView.image = image;
+    }];
     //清空cell图片
 //    cell.iconView.image = [[UIImage alloc] init];
-    //设置占位图片
-    cell.iconView.image = [UIImage imageNamed:@"bg_common"];
-    /**
-     *  判断内存中是否有图片
-     */
-    UIImage *image =  self.imageCashe[info.icon];
-    if (image != nil) {
-        cell.iconView.image = image;
-        return cell;
-    }
-    /**
-     *  判断沙盒中是否有图片
-     */
-    NSString *path = [self getCashePath:info.icon];
-    image = [UIImage imageWithContentsOfFile:path];
-    if (image != nil) {
-        cell.iconView.image = image;
-        return  cell;
-    }
-    /**
-     *  判断是否有操作缓存,避免添加重复的操作
-     */
-    if (self.operationCashe[info.icon] != nil) {
-        return cell;
-    }
+//    //设置占位图片
+//    cell.iconView.image = [UIImage imageNamed:@"bg_common"];
+//    /**
+//     *  判断内存中是否有图片
+//     */
+//    UIImage *image =  self.imageCashe[info.icon];
+//    if (image != nil) {
+//        cell.iconView.image = image;
+//        return cell;
+//    }
+//    /**
+//     *  判断沙盒中是否有图片
+//     */
+//    NSString *path = [self getCashePath:info.icon];
+//    image = [UIImage imageWithContentsOfFile:path];
     
-//    NSURL *imageUrl =[NSURL URLWithString:info.icon];
-//    [cell.imageView sd_setImageWithURL:imageUrl];
-    NSBlockOperation *op = [NSBlockOperation blockOperationWithBlock:^{
-        [NSThread sleepForTimeInterval:5];
-        NSURL *imageURL = [NSURL URLWithString:info.icon];
-        NSData *data = [NSData dataWithContentsOfURL:imageURL];
-        UIImage *iconImage = [UIImage imageWithData:data];
-        /**
-         *  写入沙盒
-         */
-        [data writeToFile:[self getCashePath:info.icon] atomically:YES];
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            [self.imageCashe setObject:iconImage forKey:info.icon];
-            [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
-        }];
-    }];
-    //添加操作到缓存
-    [self.operationCashe setObject:op forKey:info.icon];
-    //添加操作到队列
-    [self.queue addOperation:op];    
+//    if (image != nil) {
+//        [self.imageCashe setObject:image forKey:info.icon];
+//        cell.iconView.image = image;
+//        return  cell;
+//    }
+//    /**
+//     *  判断是否有操作缓存,避免添加重复的操作
+//     */
+//    if (self.operationCashe[info.icon] != nil) {
+//        return cell;
+//    }
+//    
+////    NSURL *imageUrl =[NSURL URLWithString:info.icon];
+////    [cell.imageView sd_setImageWithURL:imageUrl];
+//    NSBlockOperation *op = [NSBlockOperation blockOperationWithBlock:^{
+//        [NSThread sleepForTimeInterval:5];
+//        NSURL *imageURL = [NSURL URLWithString:info.icon];
+//        NSData *data = [NSData dataWithContentsOfURL:imageURL];
+//        UIImage *iconImage = [UIImage imageWithData:data];
+//        /**
+//         *  写入沙盒
+//         */
+//        [data writeToFile:[self getCashePath:info.icon] atomically:YES];
+//        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+//            [self.imageCashe setObject:iconImage forKey:info.icon];
+//            [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+//        }];
+//    }];
+//    //添加操作到缓存
+//    [self.operationCashe setObject:op forKey:info.icon];
+//    //添加操作到队列
+//    [self.queue addOperation:op];    
     return cell;
 }
 /**

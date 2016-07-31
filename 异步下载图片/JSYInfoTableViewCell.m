@@ -42,26 +42,26 @@
     self.iconView.image = [UIImage imageNamed:@"bg_common"];
     self.nameLabel.text = @"name";
     self.downloadLabel.text = @"下载量";
-    if (info) {
-        NSURL *url = [NSURL URLWithString:info.icon];
-        [self.iconView sd_setImageWithURL:url];
-        self.nameLabel.text = info.name;
-        self.downloadLabel.text = info.download;
-    }
 //    if (info) {
-//    NSBlockOperation *op = [NSBlockOperation blockOperationWithBlock:^{
-//        NSURL *iconURL = [NSURL URLWithString:info.icon];
-//        NSData *iconData = [NSData dataWithContentsOfURL:iconURL];
-//        UIImage *iconImage = [UIImage imageWithData:iconData];
-//        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-//            self.iconView.image = iconImage;
-//            self.nameLabel.text = info.name;
-//            self.downloadLabel.text = [NSString stringWithFormat:@"下载量:%@", info.download];
-//        }];
-//    }];
-//    
-//    [self.queue addOperation:op];
+//        NSURL *url = [NSURL URLWithString:info.icon];
+//        [self.iconView sd_setImageWithURL:url];
+//        self.nameLabel.text = info.name;
+//        self.downloadLabel.text = info.download;
 //    }
+    if (info) {
+    NSBlockOperation *op = [NSBlockOperation blockOperationWithBlock:^{
+        NSURL *iconURL = [NSURL URLWithString:info.icon];
+        NSData *iconData = [NSData dataWithContentsOfURL:iconURL];
+        UIImage *iconImage = [UIImage imageWithData:iconData];
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            self.iconView.image = iconImage;
+            self.nameLabel.text = info.name;
+            self.downloadLabel.text = [NSString stringWithFormat:@"下载量:%@", info.download];
+        }];
+    }];
+    
+    [self.queue addOperation:op];
+    }
 }
 
 @end

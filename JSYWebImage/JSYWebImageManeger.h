@@ -12,6 +12,7 @@
 
 +(instancetype)shareWebImageManeger;
 
+-(void)cancelOperationWithURLstr:(NSString *)URLstr;
 
 -(void)downloadImageWithURLSring:(NSString *)URLstr complish:(void (^)(UIImage *image)) complish;
 @end

@@ -21,7 +21,7 @@
 }
 
 -(void)main {
-    [NSThread sleepForTimeInterval:arc4random_uniform(10)];
+    [NSThread sleepForTimeInterval:6];
     
     NSURL *url = [NSURL URLWithString:self.URLstr];
     

@@ -16,7 +16,7 @@
 
 @property(nonatomic,strong) NSMutableDictionary *operationCashe;
 
-@property(nonatomic,strong) NSMutableDictionary *imageCashe;
+@property(nonatomic,strong) NSCache *imageCashe;
 
 
 
@@ -37,7 +37,7 @@
     /**
      *  内存缓存
      */
-    UIImage *image = self.imageCashe[URLstr];
+    UIImage *image = [self.imageCashe objectForKey:URLstr];
     if (image != nil) {
         NSLog(@"neicun");
         complish(image);
@@ -65,11 +65,26 @@
     JSYWebImageOperation *op = [JSYWebImageOperation operationWithURLstr:URLstr];
     __weak typeof(op) weakop = op;
     [op setCompletionBlock:^{
+        /**
+         *  下载完要移除内存中的操作
+         */
+        [self.operationCashe removeObjectForKey:URLstr];
+        /**
+         *  操作被取消了,就不用设置图片了
+         */
+        if (weakop.isCancelled) {
+            return;
+        }
+        //获取图片
         UIImage *image = weakop.image;
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            //保存image到内存
-            [self.imageCashe setObject:image forKey:URLstr];
-            [self downloadImageWithURLSring:URLstr complish:complish];
+            if (image != nil) {
+                //保存image到内存
+                [self.imageCashe setObject:image forKey:URLstr];
+            }
+            //
+            complish(image);
+//            [self downloadImageWithURLSring:URLstr complish:complish];
         }];
     }];
     //保存操作到内存
@@ -77,6 +92,16 @@
     [self.queue addOperation:op];
 }
 
+/**
+ *  取消操作
+ */
+-(void)cancelOperationWithURLstr:(NSString *)URLstr{
+    JSYWebImageOperation *op = self.operationCashe[URLstr];
+    if (op != nil) {
+        [op cancel];
+        [self.operationCashe removeObjectForKey:URLstr];
+    }
+}
 
 /**
  *  单例类方法
@@ -96,10 +121,12 @@
     }
     return _queue;
 }
--(NSMutableDictionary *)imageCashe
+-(NSCache *)imageCashe
 {
     if (_imageCashe == nil) {
-        _imageCashe = [[NSMutableDictionary alloc] init];
+        _imageCashe = [[NSCache alloc] init];
+        //设置最多存储50张图片
+        _imageCashe.countLimit = 50;
     }
     return _imageCashe;
 }

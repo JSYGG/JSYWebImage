@@ -61,8 +61,8 @@
     JSYInfo *info = self.infoArr[indexPath.row];
     cell.info = info;
     
-    cell.iconView.image = [UIImage imageNamed:@"bg_common"];
-    
+//    cell.iconView.image = [UIImage imageNamed:@"bg_common"];
+//    NSLog(@"%@",NSHomeDirectory());
     [cell.iconView jsy_setImageWithURLstr:info.icon];
     
 //    JSYWebImageManeger *maneger = [JSYWebImageManeger shareWebImageManeger];
@@ -126,6 +126,7 @@
  */
 -(NSString *)getCashePath:(NSString *)urlString {
     NSString *cashePath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
+    
     NSString *imageName = [urlString lastPathComponent];
     NSString *filePath = [cashePath stringByAppendingPathComponent:imageName];
     return filePath;

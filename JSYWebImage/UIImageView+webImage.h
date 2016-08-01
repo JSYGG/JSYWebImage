@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-
+const 
 @interface UIImageView (webImage)
+
+@property(nonatomic,copy) NSString *URLstr;
 
 -(void)jsy_setImageWithURLstr:(NSString *)URLstr;
 
